@@ -16,57 +16,57 @@ import android.os.Handler;
  */
 public class EventBus {
 
-	private Handler mHandler;
-	private static EventBus mInstance = null;
-	private final Map<String, List<EventObserver>> events = Collections.synchronizedMap(new HashMap<String, List<EventObserver>>());
-	private Object obj = new Object();
+    private Handler mHandler;
+    private static EventBus mInstance = null;
+    private final Map<String, List<EventObserver>> events = Collections.synchronizedMap(new HashMap<String, List<EventObserver>>());
+    private Object obj = new Object();
 
-	private EventBus() {
-		mHandler = new Handler();
-	}
+    private EventBus() {
+        mHandler = new Handler();
+    }
 
-	public static EventBus getInstance() {
-		if (mInstance == null) {
-			mInstance = new EventBus();
-		}
-		return mInstance;
-	}
+    public static EventBus getInstance() {
+        if (mInstance == null) {
+            mInstance = new EventBus();
+        }
+        return mInstance;
+    }
 
-	synchronized public void listen(String eventType, EventObserver eventObserver) {
-		List<EventObserver> observers = events.get(eventType);
-		if (observers == null) {
-			observers = Collections.synchronizedList(new ArrayList<EventObserver>());
-		}
-		observers.add(eventObserver);
-		events.put(eventType, observers);
-	}
+    synchronized public void listen(String eventType, EventObserver eventObserver) {
+        List<EventObserver> observers = events.get(eventType);
+        if (observers == null) {
+            observers = Collections.synchronizedList(new ArrayList<EventObserver>());
+        }
+        observers.add(eventObserver);
+        events.put(eventType, observers);
+    }
 
-	synchronized public void unlisten(String eventType, EventObserver eventObserver) {
-		List<EventObserver> observers = events.get(eventType);
-		if (observers != null) {
-			observers.remove(eventObserver);
-		}
-	}
+    synchronized public void unlisten(String eventType, EventObserver eventObserver) {
+        List<EventObserver> observers = events.get(eventType);
+        if (observers != null) {
+            observers.remove(eventObserver);
+        }
+    }
 
-	public void notify(Event event) {
-		synchronized (obj) {
-			List<EventObserver> observers = events.get(event.getType());
-			if (observers != null) {
-				for (EventObserver observer : observers) {
-					AbstractEvent abstractEvent = (AbstractEvent) event;
-					abstractEvent.fire(observer);
-				}
-			}
-		}
-	}
-	
-	public void notify(final Event event, long delay) {
-		mHandler.postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				EventBus.this.notify(event);
-			}
-		}, delay);
-	}
+    public void notify(Event event) {
+        synchronized (obj) {
+            List<EventObserver> observers = events.get(event.getType());
+            if (observers != null) {
+                for (EventObserver observer : observers) {
+                    AbstractEvent abstractEvent = (AbstractEvent) event;
+                    abstractEvent.fire(observer);
+                }
+            }
+        }
+    }
+
+    public void notify(final Event event, long delay) {
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                EventBus.this.notify(event);
+            }
+        }, delay);
+    }
 
 }

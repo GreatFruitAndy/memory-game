@@ -8,16 +8,16 @@ import com.snatik.matches.events.EventObserver;
  */
 public class BackGameEvent extends AbstractEvent {
 
-	public static final String TYPE = BackGameEvent.class.getName();
+    public static final String TYPE = BackGameEvent.class.getName();
 
-	@Override
-	protected void fire(EventObserver eventObserver) {
-		eventObserver.onEvent(this);
-	}
+    @Override
+    protected void fire(EventObserver eventObserver) {
+        eventObserver.onEvent(this);
+    }
 
-	@Override
-	public String getType() {
-		return TYPE;
-	}
+    @Override
+    public String getType() {
+        return TYPE;
+    }
 
 }

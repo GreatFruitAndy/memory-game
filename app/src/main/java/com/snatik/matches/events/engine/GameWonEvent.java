@@ -9,22 +9,22 @@ import com.snatik.matches.model.GameState;
  */
 public class GameWonEvent extends AbstractEvent {
 
-	public static final String TYPE = GameWonEvent.class.getName();
+    public static final String TYPE = GameWonEvent.class.getName();
 
-	public GameState gameState;
-	
-	public GameWonEvent(GameState gameState) {
-		this.gameState = gameState;
-	}
+    public GameState gameState;
 
-	@Override
-	protected void fire(EventObserver eventObserver) {
-		eventObserver.onEvent(this);
-	}
+    public GameWonEvent(GameState gameState) {
+        this.gameState = gameState;
+    }
 
-	@Override
-	public String getType() {
-		return TYPE;
-	}
+    @Override
+    protected void fire(EventObserver eventObserver) {
+        eventObserver.onEvent(this);
+    }
+
+    @Override
+    public String getType() {
+        return TYPE;
+    }
 
 }

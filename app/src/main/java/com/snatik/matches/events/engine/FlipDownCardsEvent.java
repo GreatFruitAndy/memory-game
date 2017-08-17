@@ -8,19 +8,19 @@ import com.snatik.matches.events.EventObserver;
  */
 public class FlipDownCardsEvent extends AbstractEvent {
 
-	public static final String TYPE = FlipDownCardsEvent.class.getName();
+    public static final String TYPE = FlipDownCardsEvent.class.getName();
 
-	public FlipDownCardsEvent() {
-	}
-	
-	@Override
-	protected void fire(EventObserver eventObserver) {
-		eventObserver.onEvent(this);
-	}
+    public FlipDownCardsEvent() {
+    }
 
-	@Override
-	public String getType() {
-		return TYPE;
-	}
+    @Override
+    protected void fire(EventObserver eventObserver) {
+        eventObserver.onEvent(this);
+    }
+
+    @Override
+    public String getType() {
+        return TYPE;
+    }
 
 }

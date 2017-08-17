@@ -9,21 +9,21 @@ import com.snatik.matches.themes.Theme;
  */
 public class Game {
 
-	/**
-	 * The board configuration
-	 */
-	public BoardConfiguration boardConfiguration;
+    /**
+     * The board configuration
+     */
+    public BoardConfiguration boardConfiguration;
 
-	/**
-	 * The board arrangment
-	 */
-	public BoardArrangment boardArrangment;
+    /**
+     * The board arrangment
+     */
+    public BoardArrangment boardArrangment;
 
-	/**
-	 * The selected theme
-	 */
-	public Theme theme;
+    /**
+     * The selected theme
+     */
+    public Theme theme;
 
-	public GameState gameState;
+    public GameState gameState;
 
 }

@@ -8,22 +8,22 @@ import com.snatik.matches.events.EventObserver;
  */
 public class DifficultySelectedEvent extends AbstractEvent {
 
-	public static final String TYPE = DifficultySelectedEvent.class.getName();
+    public static final String TYPE = DifficultySelectedEvent.class.getName();
 
-	public final int difficulty;
-	
-	public DifficultySelectedEvent(int difficulty) {
-		this.difficulty = difficulty;
-	}
-	
-	@Override
-	protected void fire(EventObserver eventObserver) {
-		eventObserver.onEvent(this);
-	}
+    public final int difficulty;
 
-	@Override
-	public String getType() {
-		return TYPE;
-	}
+    public DifficultySelectedEvent(int difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    @Override
+    protected void fire(EventObserver eventObserver) {
+        eventObserver.onEvent(this);
+    }
+
+    @Override
+    public String getType() {
+        return TYPE;
+    }
 
 }
