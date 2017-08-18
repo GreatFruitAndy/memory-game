@@ -5,9 +5,12 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
+import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -24,6 +27,8 @@ import com.snatik.matches.utils.Clock;
 import com.snatik.matches.utils.Clock.OnTimerCount;
 import com.snatik.matches.utils.FontLoader;
 import com.snatik.matches.utils.FontLoader.Font;
+
+import org.greatfruit.andy.sdk.presentation.AndyFragment;
 
 public class PopupWonView extends RelativeLayout {
 
@@ -64,7 +69,37 @@ public class PopupWonView extends RelativeLayout {
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Shared.eventBus.notify(new NextGameEvent());
+                final FragmentActivity activity = (FragmentActivity) getContext();
+                View view = activity.findViewById(R.id.fragment_container);
+                activity.findViewById(R.id.popup_container).setVisibility(GONE);
+                AndyFragment andyFragment = new AndyFragment();
+                activity.getSupportFragmentManager().beginTransaction()
+                        .addToBackStack(AndyFragment.class.getSimpleName())
+                        .replace(R.id.fragment_container, andyFragment)
+                        .commit();
+                AndyFragmentLauncher.launch(
+                        andyFragment,
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                activity.runOnUiThread(
+                                        new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                try {
+                                                    activity.findViewById(R.id.popup_container).setVisibility(VISIBLE);
+                                                    Shared.eventBus.notify(new NextGameEvent());
+                                                } catch (NullPointerException e) {
+                                                    Log.e(getClass().getSimpleName(), e.getMessage(), e);
+                                                }
+                                            }
+                                        }
+                                );
+                            }
+                        },
+                        view.getWidth(),
+                        view.getHeight()
+                );
             }
         });
     }

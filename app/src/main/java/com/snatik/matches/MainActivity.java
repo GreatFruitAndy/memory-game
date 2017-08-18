@@ -22,7 +22,7 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Shared.context = getApplicationContext();
+        Shared.context = this;
         Shared.engine = Engine.getInstance();
         Shared.eventBus = EventBus.getInstance();
 
